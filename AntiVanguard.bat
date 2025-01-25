@@ -19,38 +19,44 @@ IF %M%==2 goto OFF
 
 :ON
 cls
-echo @echo off > %tmp%\AntiSpyVanOn.bat
-echo sc config vgk start=system ^& sc config vgc start=demand >> %tmp%\AntiSpyVanOn.bat
-echo cd "C:\Program Files\" >> %tmp%\AntiSpyVanOn.bat
-echo if exist AntiVanCheatSpy ( >> %tmp%\AntiSpyVanOn.bat
-echo     rename AntiVanCheatSpy "Riot Vanguard" >> %tmp%\AntiSpyVanOn.bat
-echo ) >> %tmp%\AntiSpyVanOn.bat
-echo cd /d "G:\Riot Games\" >> %tmp%\AntiSpyVanOn.bat
-echo if exist AntiClient ( >> %tmp%\AntiSpyVanOn.bat
-echo     rename AntiClient "Riot Client" >> %tmp%\AntiSpyVanOn.bat
-echo ) >> %tmp%\AntiSpyVanOn.bat
-echo shutdown /s /f /t 00 >> %tmp%\AntiSpyVanOn.bat
+(
+    echo @echo off
+    echo sc config vgk start=system ^& sc config vgc start=demand
+    echo cd "C:\Program Files\"
+    echo if exist AntiVanCheatSpy (
+    echo     rename AntiVanCheatSpy "Riot Vanguard"
+    echo )
+    echo cd /d "G:\Riot Games\"
+    echo if exist AntiClient (
+    echo     rename AntiClient "Riot Client"
+    echo )
+    echo shutdown /s /f /t 00
+) > %tmp%\AntiSpyVanSwitch.bat
+pause
 
-powershell start-process -wait "%tmp%\AntiSpyVanOn.bat" -verb runas >NUL
-timeout /t 3 /nobreak >NUL
-del %tmp%\AntiSpyVanOn.bat
-goto OPTION
+goto FINALLY
 
 :OFF
 cls
-echo @echo off > %tmp%\AntiSpyVanOff.bat
-echo sc stop vgk >> %tmp%\AntiSpyVanOff.bat
-echo sc config vgk start=disabled ^& sc config vgc start=disabled >> %tmp%\AntiSpyVanOff.bat
-echo cd "C:\Program Files\" >> %tmp%\AntiSpyVanOff.bat
-echo if exist "Riot Vanguard" ( >> %tmp%\AntiSpyVanOff.bat
-echo     rename "Riot Vanguard" AntiVanCheatSpy >> %tmp%\AntiSpyVanOff.bat
-echo ) >> %tmp%\AntiSpyVanOff.bat
-echo cd /d "G:\Riot Games\" >> %tmp%\AntiSpyVanOff.bat
-echo if exist "Riot Client" ( >> %tmp%\AntiSpyVanOff.bat
-echo     rename "Riot Client" AntiClient >> %tmp%\AntiSpyVanOff.bat
-echo ) >> %tmp%\AntiSpyVanOff.bat
+(
+    echo @echo off
+    echo sc stop vgk
+    echo sc config vgk start=disabled ^& sc config vgc start=disabled
+    echo cd "C:\Program Files\"
+    echo if exist "Riot Vanguard" (
+    echo     rename "Riot Vanguard" AntiVanCheatSpy
+    echo )
+    echo cd /d "G:\Riot Games\"
+    echo if exist "Riot Client" (
+    echo     rename "Riot Client" AntiClient
+    echo )
+) > %tmp%\AntiSpyVanSwitch.bat
+pause
 
-powershell start-process -wait "%tmp%\AntiSpyVanOff.bat" -verb runas >NUL
+goto FINALLY
+
+:FINALLY
+powershell start-process -wait "%tmp%\AntiSpyVanSwitch.bat" -verb runas >NUL
 timeout /t 3 /nobreak >NUL
-del %tmp%\AntiSpyVanOff.bat
+del %tmp%\AntiSpyVanSwitch.bat
 goto OPTION
