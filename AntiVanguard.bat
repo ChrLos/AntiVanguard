@@ -22,6 +22,7 @@ cls
 (
     echo @echo off
     echo sc config vgk start=system ^& sc config vgc start=demand
+
     echo cd "C:\Program Files\"
     echo if exist AntiVanCheatSpy (
     echo     rename AntiVanCheatSpy "Riot Vanguard"
@@ -42,6 +43,10 @@ cls
     echo @echo off
     echo sc stop vgk
     echo sc config vgk start=disabled ^& sc config vgc start=disabled
+    echo net stop vgk ^& net stop vgc
+    echo taskkill /f /im vgtray.exe
+    echo del /q "Logs"
+
     echo cd "C:\Program Files\"
     echo if exist "Riot Vanguard" (
     echo     rename "Riot Vanguard" AntiVanCheatSpy
