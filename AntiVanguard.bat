@@ -53,6 +53,8 @@ sc config vgc start=disabled
 
 net stop vgk ^& net stop vgc
 taskkill /f /im vgtray.exe
+taskkill /f /im RiotClientServices.exe
+taskkill /f /im RiotClientCrashHandler.exe
 del /q "Logs"
 
 cd "C:\Program Files\"
