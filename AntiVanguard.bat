@@ -1,6 +1,12 @@
 @echo off
 title Valorant Anticheat
 
+:ADMINCHECK
+fsutil dirty query %systemdrive% >NUL
+if NOT %ERRORLEVEL% == 0 (
+    powershell start-process -wait "%cd%/AntiVanguard.bat" -verb runas >NUL
+)
+
 :OPTION
 mode con cols=49 lines=8
 cls
@@ -19,49 +25,44 @@ IF %M%==2 goto OFF
 
 :ON
 cls
-(
-    echo @echo off
-    echo sc config vgk start=system ^& sc config vgc start=demand
+@echo off
 
-    echo cd "C:\Program Files\"
-    echo if exist AntiVanCheatSpy (
-    echo     rename AntiVanCheatSpy "Riot Vanguard"
-    echo )
-    echo cd /d "G:\Riot Games\"
-    echo if exist AntiClient (
-    echo     rename AntiClient "Riot Client"
-    echo )
-    echo shutdown /s /f /t 00
-) > %tmp%\AntiSpyVanSwitch.bat
+sc config vgk start=system
+sc config vgc start=demand
+
+cd "C:\Program Files\"
+if exist AntiVanCheatSpy (
+    rename AntiVanCheatSpy "Riot Vanguard"
+)
+cd /d "G:\Riot Games\"
+if exist AntiClient (
+    rename AntiClient "Riot Client"
+)
+
 pause
-
-goto FINALLY
+shutdown /s /f /t 00
+goto OPTION
 
 :OFF
 cls
-(
-    echo @echo off
-    echo sc stop vgk
-    echo sc config vgk start=disabled ^& sc config vgc start=disabled
-    echo net stop vgk ^& net stop vgc
-    echo taskkill /f /im vgtray.exe
-    echo del /q "Logs"
+@echo off
 
-    echo cd "C:\Program Files\"
-    echo if exist "Riot Vanguard" (
-    echo     rename "Riot Vanguard" AntiVanCheatSpy
-    echo )
-    echo cd /d "G:\Riot Games\"
-    echo if exist "Riot Client" (
-    echo     rename "Riot Client" AntiClient
-    echo )
-) > %tmp%\AntiSpyVanSwitch.bat
+sc stop vgk
+sc config vgk start=disabled
+sc config vgc start=disabled
+
+net stop vgk ^& net stop vgc
+taskkill /f /im vgtray.exe
+del /q "Logs"
+
+cd "C:\Program Files\"
+if exist "Riot Vanguard" (
+    rename "Riot Vanguard" AntiVanCheatSpy
+)
+cd /d "G:\Riot Games\"
+if exist "Riot Client" (
+    rename "Riot Client" AntiClient
+)
+
 pause
-
-goto FINALLY
-
-:FINALLY
-powershell start-process -wait "%tmp%\AntiSpyVanSwitch.bat" -verb runas >NUL
-timeout /t 3 /nobreak >NUL
-del %tmp%\AntiSpyVanSwitch.bat
 goto OPTION
