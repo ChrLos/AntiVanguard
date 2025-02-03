@@ -1,6 +1,15 @@
 @echo off
 title Valorant Anticheat
 
+set "VanguardDir=%PROGRAMFILES%"
+set "VanguardClientDir=SET THE LOCATION HERE"
+
+if "%VanguardClientDir%"=="SET THE LOCATION HERE" (
+    echo Set the location to "Riot Games" first
+    pause
+    exit /b
+)
+
 :ADMINCHECK
 fsutil dirty query %systemdrive% >NUL
 if NOT %ERRORLEVEL% == 0 (
@@ -30,11 +39,11 @@ cls
 sc config vgk start=system
 sc config vgc start=demand
 
-cd "C:\Program Files\"
+cd "%VanguardDir%"
 if exist AntiVanCheatSpy (
     rename AntiVanCheatSpy "Riot Vanguard"
 )
-cd /d "G:\Riot Games\"
+cd /d "%VanguardClientDir%"
 if exist AntiClient (
     rename AntiClient "Riot Client"
 )
@@ -57,11 +66,11 @@ taskkill /f /im RiotClientServices.exe
 taskkill /f /im RiotClientCrashHandler.exe
 del /q "Logs"
 
-cd "C:\Program Files\"
+cd "%VanguardDir%"
 if exist "Riot Vanguard" (
     rename "Riot Vanguard" AntiVanCheatSpy
 )
-cd /d "G:\Riot Games\"
+cd /d "%VanguardClientDir%"
 if exist "Riot Client" (
     rename "Riot Client" AntiClient
 )
