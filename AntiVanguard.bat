@@ -3,6 +3,7 @@ set "VanguardDir=%PROGRAMFILES%"
 
 @echo off
 title Valorant Anticheat
+cls
 
 REM Checks if path has been changed
 if "%VanguardClientDir%"=="" (
@@ -15,6 +16,7 @@ REM Run the script as admin
 fsutil dirty query %systemdrive% >NUL
 if NOT %ERRORLEVEL% == 0 (
     powershell start-process -wait "%cd%/AntiVanguard.bat" -verb runas >NUL
+    exit /b
 )
 
 :OPTION
