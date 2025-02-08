@@ -1,12 +1,11 @@
+set "VanguardClientDir="        &:: Example: "VanguardClientDir=C:\Riot Games\"
+set "VanguardDir=%PROGRAMFILES%"
+
 @echo off
 title Valorant Anticheat
 
-set "VanguardDir=%PROGRAMFILES%"
-:: Example: "C:\Riot Games\"
-set "VanguardClientDir=SET THE LOCATION HERE"
-
 REM Checks if path has been changed
-if "%VanguardClientDir%"=="SET THE LOCATION HERE" (
+if "%VanguardClientDir%"=="" (
     echo Set the location to "Riot Games" first
     pause
     exit /b
