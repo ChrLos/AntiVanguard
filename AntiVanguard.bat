@@ -36,9 +36,6 @@ IF %M%==1 goto ON
 IF %M%==2 goto OFF
 
 :ON
-cls
-@echo off
-
 sc config vgk start=system
 sc config vgc start=demand
 
@@ -59,9 +56,6 @@ shutdown /s /f /t 00
 goto OPTION
 
 :OFF
-cls
-@echo off
-
 sc stop vgk
 sc config vgk start=disabled
 sc config vgc start=disabled
