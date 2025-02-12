@@ -1,10 +1,16 @@
-# NOTES
+# AntiVanguard
 
-As of now, the following script is not meant to be used by anyone, but rather a simple template
+A script that completely disable Vanguard Anticheat
 
-This means you are still required to edit the batch script as of now
+## To use:
+Edit the script with notepad and insert the location of Riot Games on `VanguardClientDir=`
+
+Example: `VanguardClientDir=C:\Riot Games\`
+
+Finally run the script
+
 
 ---
 
-Some code are inspired/copied from:
+References:
 https://github.com/Vudgekek/NoMoreVanguard
