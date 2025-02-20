@@ -48,9 +48,10 @@ if exist AntiClient (
     rename AntiClient "Riot Client"
 )
 
-echo Enter to shutdown....
+echo.
+echo Press any key to shutdown
 echo Exit the app to cancel
-pause
+pause >NUL
 
 shutdown /s /f /t 00
 goto OPTION
