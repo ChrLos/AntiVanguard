@@ -9,7 +9,6 @@ Example: `VanguardClientDir=C:\Riot Games\`
 
 Finally run the script
 
-
 ---
 
 References:
