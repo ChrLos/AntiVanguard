@@ -74,6 +74,8 @@ taskkill /f /im RiotClientServices.exe
 taskkill /f /im RiotClientCrashHandler.exe
 del /q "Logs"
 
+timeout /t 3
+
 cd "%VanguardDir%"
 if exist "Riot Vanguard" (
     rename "Riot Vanguard" AntiVanCheatSpy
