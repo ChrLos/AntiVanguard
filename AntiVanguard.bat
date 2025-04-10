@@ -29,9 +29,9 @@ if exist %VanguardClientDir%\vgk.sys {
 :OPTION
 mode con cols=49 lines=8
 cls
-echo  ===================================================
+echo =================================================
 echo     %Option%
-echo  ===================================================
+echo =================================================
 echo.
 echo 1 - Turn on Anticheat
 echo 2 - Turn off Anticheat
