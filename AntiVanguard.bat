@@ -68,7 +68,9 @@ sc stop vgk
 sc config vgk start=disabled
 sc config vgc start=disabled
 
-net stop vgk ^& net stop vgc
+net stop vgk
+net stop vgc
+
 taskkill /f /im vgtray.exe
 taskkill /f /im RiotClientServices.exe
 taskkill /f /im RiotClientCrashHandler.exe
