@@ -37,10 +37,8 @@ echo 1 - Turn on Anticheat
 echo 2 - Turn off Anticheat
 
 choice /C:12 /N /M " Choose One : "
-IF ERRORLEVEL 1 SET M=1
-IF ERRORLEVEL 2 SET M=2
-IF %M%==1 goto ON
-IF %M%==2 goto OFF
+IF %ERRORLEVEL% == 1 GOTO ON
+IF %ERRORLEVEL% == 2 GOTO OFF
 
 :ON
 sc config vgk start=system
