@@ -1,5 +1,5 @@
-set "VanguardClientDir="        &:: Example: "VanguardClientDir=C:\Riot Games\Riot Client"
-set "VanguardDir=%PROGRAMFILES%"
+set "VanguardClientDir="        &:: Example: "VanguardClientDir=C:\Riot Games\"
+set "VanguardDir=%PROGRAMFILES%\Riot Vanguard"
 
 @echo off
 title Valorant Anticheat
@@ -20,11 +20,11 @@ if NOT %ERRORLEVEL% == 0 (
 )
 
 REM Check if Anticheat already is deactivated
-if exist %VanguardClientDir%\vgk.sys {
+if exist "%VanguardDir%\vgk.sys" (
     set "Option=Anticheat is Activated"
-} else {
+) else (
     set "Option=Anticheat is Deactivated"
-}
+)
 
 :OPTION
 mode con cols=49 lines=8
@@ -44,11 +44,11 @@ IF %ERRORLEVEL% == 2 GOTO OFF
 sc config vgk start=system
 sc config vgc start=demand
 
-cd "%VanguardDir%"
+cd "%VanguardDir%\.."
 if exist AntiVanCheatSpy (
     rename AntiVanCheatSpy "Riot Vanguard"
 )
-cd /d "%VanguardClientDir%\.."
+cd /d "%VanguardClientDir%"
 if exist AntiClient (
     rename AntiClient "Riot Client"
 )
@@ -76,11 +76,11 @@ del /q "Logs"
 
 timeout /t 3
 
-cd "%VanguardDir%"
+cd "%VanguardDir%\.."
 if exist "Riot Vanguard" (
     rename "Riot Vanguard" AntiVanCheatSpy
 )
-cd /d "%VanguardClientDir%\.."
+cd /d "%VanguardClientDir%"
 if exist "Riot Client" (
     rename "Riot Client" AntiClient
 )
